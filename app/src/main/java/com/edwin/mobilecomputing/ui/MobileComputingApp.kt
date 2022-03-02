@@ -3,8 +3,6 @@ package com.edwin.mobilecomputing.ui
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.edwin.mobilecomputing.MobileComputingAppState
-import com.edwin.mobilecomputing.rememberMobileComputingAppState
 import com.edwin.mobilecomputing.ui.home.Home
 import com.edwin.mobilecomputing.ui.login.Login
 import com.edwin.mobilecomputing.ui.payment.Payment

@@ -6,7 +6,6 @@ import com.edwin.mobilecomputing.data.entity.Payment
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.*
 
 class CategoryPaymentViewModel : ViewModel() {
     private val _state = MutableStateFlow(CategoryPaymentViewState())
@@ -20,8 +19,8 @@ class CategoryPaymentViewModel : ViewModel() {
                 Payment(
                     paymentId = x.toLong(),
                     paymentTitle = "$x payment",
-                    paymentCategory = "Food",
-                    paymentDate = Date()
+                    paymentCategoryId = 1,
+                    paymentDate = 123
                 )
             )
         }

@@ -1,4 +1,4 @@
-package com.edwin.mobilecomputing
+package com.edwin.mobilecomputing.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

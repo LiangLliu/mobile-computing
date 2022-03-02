@@ -31,7 +31,7 @@ fun Payment(
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.Top,
                 modifier = Modifier.padding(16.dp)
             ) {
                 OutlinedTextField(
@@ -41,7 +41,7 @@ fun Payment(
                     modifier = Modifier.fillMaxWidth(),
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 OutlinedTextField(
                     value = "",
@@ -49,22 +49,23 @@ fun Payment(
                     label = { Text("Recipient account") },
                     modifier = Modifier.fillMaxWidth(),
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Row {
                     OutlinedTextField(
                         value = "",
                         onValueChange = { },
                         label = { Text("Date") },
                     )
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     OutlinedTextField(
                         value = "",
                         onValueChange = { },
                         label = { Text("Amount") },
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
                     onClick = { /*TODO*/ },

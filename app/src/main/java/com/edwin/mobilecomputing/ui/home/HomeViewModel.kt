@@ -2,6 +2,7 @@ package com.edwin.mobilecomputing.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edwin.mobilecomputing.Graph.categoryRepository
 import com.edwin.mobilecomputing.data.entity.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,28 +22,16 @@ class HomeViewModel : ViewModel() {
     }
 
     init {
-        val categories = MutableStateFlow<List<Category>>(
-            mutableListOf(
-                Category(1, "Food"),
-                Category(2, "Health"),
-                Category(3, "Savings"),
-                Category(4, "Drinks"),
-                Category(5, "Clothing"),
-                Category(6, "Investment"),
-                Category(7, "Travel"),
-                Category(8, "Fuel"),
-                Category(9, "Repairs"),
-                Category(10, "Coffee")
-            )
-        )
-
-        viewModelScope.launch {
+        viewModelScope
+            .launch {
             combine(
-                categories.onEach { category ->
-                    if (categories.value.isNotEmpty() && _selectedCategory.value == null) {
-                        _selectedCategory.value = category[0]
-                    }
-                },
+                categoryRepository
+                    .categories()
+                    .onEach { list ->
+                        if (list.isNotEmpty() && _selectedCategory.value == null) {
+                            _selectedCategory.value = list[0]
+                        }
+                    },
                 _selectedCategory
             ) { categories, selectedCategory ->
                 HomeViewState(
@@ -51,6 +40,28 @@ class HomeViewModel : ViewModel() {
                 )
             }.collect { _state.value = it }
         }
+
+        loadCategoriesFromDB()
+    }
+
+    private fun loadCategoriesFromDB() {
+        val categories = mutableListOf(
+            Category(name = "Food"),
+            Category(name = "Health"),
+            Category(name = "Savings"),
+            Category(name = "Drinks"),
+            Category(name = "Clothing"),
+            Category(name = "Investment"),
+            Category(name = "Travel"),
+            Category(name = "Fuel"),
+            Category(name = "Repairs"),
+            Category(name = "Coffee")
+        )
+
+        viewModelScope.launch {
+            categories.forEach { category -> categoryRepository.addCategory(category) }
+        }
+
     }
 }
 

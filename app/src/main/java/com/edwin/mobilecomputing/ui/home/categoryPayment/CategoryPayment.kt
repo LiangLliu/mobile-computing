@@ -19,12 +19,10 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edwin.mobilecomputing.R
 import com.edwin.mobilecomputing.data.entity.Payment
-import com.edwin.mobilecomputing.utils.formatToString
+import com.edwin.mobilecomputing.utils.toDateString
 
 @Composable
-fun CategoryPayment(
-    modifier: Modifier = Modifier
-) {
+fun CategoryPayment() {
     val viewModel: CategoryPaymentViewModel = viewModel()
     val viewState by viewModel.state.collectAsState()
 
@@ -49,7 +47,6 @@ fun PaymentList(
                 onClick = {},
                 modifier = Modifier.fillParentMaxWidth(),
             )
-
         }
     }
 }
@@ -89,7 +86,7 @@ fun PaymentListItem(
 
         // category
         Text(
-            text = payment.paymentCategory,
+            text = payment.paymentCategoryId.toString(),
             maxLines = 1,
             style = MaterialTheme.typography.subtitle2,
             modifier = Modifier.constrainAs(paymentCategory) {
@@ -108,7 +105,7 @@ fun PaymentListItem(
 
         // date
         Text(
-            text = payment.paymentDate.formatToString(),
+            text = payment.paymentDate.toDateString(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.caption,
