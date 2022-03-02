@@ -21,7 +21,7 @@ fun MobileComputingApp(
             Login(navController = appState.navController)
         }
         composable("home") {
-            Home()
+            Home(navController = appState.navController)
         }
         composable(route = "payment") {
             Payment(onBackPress = appState::navigateBack)

@@ -66,7 +66,7 @@ fun Login(
             Spacer(modifier = Modifier.height(18.dp))
             Button(
                 onClick = {
-                    navController.navigate("payment")
+                    navController.navigate("home")
                 },
                 enabled = true,
                 modifier = Modifier.fillMaxWidth(),
