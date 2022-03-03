@@ -12,7 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.accompanist.insets.systemBarsPadding
 
@@ -69,10 +72,14 @@ fun Login(
                     navController.navigate("home")
                 },
                 enabled = true,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = MaterialTheme.shapes.small,
+
             ) {
-                Text(text = "Login")
+                Text(
+                    text = "Login",
+                    fontSize = 18.sp
+                )
             }
         }
     }
