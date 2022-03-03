@@ -3,6 +3,7 @@ package com.edwin.mobilecomputing
 import android.content.Context
 import androidx.room.Room
 import com.edwin.mobilecomputing.data.repository.CategoryRepository
+import com.edwin.mobilecomputing.data.repository.PaymentRepository
 import com.edwin.mobilecomputing.data.room.MobileComputingDatabase
 
 /**
@@ -17,6 +18,12 @@ object Graph {
     val categoryRepository by lazy {
         CategoryRepository(
             categoryDao = database.categoryDao()
+        )
+    }
+
+    val paymentRepository by lazy {
+        PaymentRepository(
+            paymentDao = database.paymentDao()
         )
     }
 

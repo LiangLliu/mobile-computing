@@ -18,32 +18,42 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edwin.mobilecomputing.R
+import com.edwin.mobilecomputing.data.entity.Category
 import com.edwin.mobilecomputing.data.entity.Payment
+import com.edwin.mobilecomputing.data.room.PaymentToCategory
 import com.edwin.mobilecomputing.utils.toDateString
+import com.edwin.mobilecomputing.utils.viewModelProviderFactoryOf
 
 @Composable
-fun CategoryPayment() {
-    val viewModel: CategoryPaymentViewModel = viewModel()
+fun CategoryPayment(
+    categoryId: Long,
+    modifier: Modifier = Modifier
+) {
+    val viewModel: CategoryPaymentViewModel = viewModel(
+        key = "category_list_$categoryId",
+        factory = viewModelProviderFactoryOf { CategoryPaymentViewModel(categoryId) }
+    )
     val viewState by viewModel.state.collectAsState()
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier) {
         PaymentList(
-            payments = viewState.payments
+            list = viewState.payments
         )
     }
 }
 
 @Composable
-fun PaymentList(
-    payments: List<Payment>
+private fun PaymentList(
+    list: List<PaymentToCategory>
 ) {
     LazyColumn(
         contentPadding = PaddingValues(0.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        items(payments) { payment ->
+        items(list) { item ->
             PaymentListItem(
-                payment = payment,
+                payment = item.payment,
+                category = item.category,
                 onClick = {},
                 modifier = Modifier.fillParentMaxWidth(),
             )
@@ -52,10 +62,11 @@ fun PaymentList(
 }
 
 @Composable
-fun PaymentListItem(
+private fun PaymentListItem(
     payment: Payment,
+    category: Category,
     onClick: () -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
 ) {
     ConstraintLayout(modifier = modifier.clickable { onClick() }) {
         val (divider, paymentTitle, paymentCategory, icon, date) = createRefs()
@@ -66,9 +77,10 @@ fun PaymentListItem(
                 width = Dimension.fillToConstraints
             }
         )
+
         // title
         Text(
-            text = payment.paymentTitle,
+            text = payment.title,
             maxLines = 1,
             style = MaterialTheme.typography.subtitle1,
             modifier = Modifier.constrainAs(paymentTitle) {
@@ -86,7 +98,7 @@ fun PaymentListItem(
 
         // category
         Text(
-            text = payment.paymentCategoryId.toString(),
+            text = category.name,
             maxLines = 1,
             style = MaterialTheme.typography.subtitle2,
             modifier = Modifier.constrainAs(paymentCategory) {

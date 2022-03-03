@@ -79,7 +79,10 @@ fun HomeContent(
                 onCategorySelected = onCategorySelected
             )
 
-            CategoryPayment()
+            CategoryPayment(
+                modifier = Modifier.fillMaxSize(),
+                categoryId = selectedCategory.id
+            )
         }
     }
 }
